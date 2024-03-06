@@ -17,6 +17,13 @@
             ],
             "cwd": "${workspaceFolder}/vue",
             "type": "node"
+        },
+        {
+            "name": "调试 Vue 项目",
+            "type": "chrome",
+            "request": "launch",
+            "preLaunchTask": "npm run serve",
+            "url": "http://localhost:8080/"
         }
     ]
 }
