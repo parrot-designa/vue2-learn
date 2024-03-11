@@ -21,8 +21,7 @@
         {
             "name": "调试 Vue 项目",
             "type": "chrome",
-            "request": "launch",
-            "preLaunchTask": "npm run serve",
+            "request": "launch", 
             "url": "http://localhost:8080/"
         }
     ]
