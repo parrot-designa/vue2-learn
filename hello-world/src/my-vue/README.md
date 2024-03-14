@@ -77,3 +77,22 @@ export default class Watcher {
     }
 }
 ```
+
+# 5.定义_init方法中赋值$options的逻辑
+
+在实例化Vue时，会调用init方法来初始化一些用户传入的选项，赋值到vue实例上以便调用。
+
+为了简化操作，直接将$option赋值为用户传入的option
+
+```js
+function mergeOptions(options){
+    return options;
+}
+ 
+Vue.prototype._init = function(options){
+    const vm = this;
+    vm.$options = mergeOptions(
+        options || {}
+    );
+}
+```

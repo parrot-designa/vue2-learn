@@ -2,6 +2,7 @@ import Watcher from "./watch";
 
 function Vue(options) {
     console.log("我是vue实例",options);
+    this._init(options);
 }
 
 // 获取真实dom节点
@@ -36,6 +37,17 @@ function mountComponent(vm, el){
 Vue.prototype.$mount = function(el){
     el = el ? query(el) : undefined;
     mountComponent(this, el);
+} 
+
+function mergeOptions(options){
+    return options;
+}
+ 
+Vue.prototype._init = function(options){
+    const vm = this;
+    vm.$options = mergeOptions(
+        options || {}
+    );
 }
 
 export default Vue;
