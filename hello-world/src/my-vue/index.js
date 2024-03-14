@@ -1,3 +1,5 @@
+import Watcher from "./watch";
+
 function Vue(options) {
     console.log("我是vue实例",options);
 }
@@ -20,6 +22,7 @@ function mountComponent(vm, el){
     let updateComponent;
 
     updateComponent = () => {
+        console.log("updateComponent")
         vm._update(vm._render());
     }
 

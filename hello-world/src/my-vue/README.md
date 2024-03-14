@@ -50,3 +50,30 @@ function mountComponent(vm, el){
     } 
 }
 ```
+
+# 4.定义Watch类
+
+上节我们说到updateComponent方法是渲染dom的方法，那么updateComponent是什么时候执行的呢？在Vue源码中，初始化渲染时，是通过watch类的回调函数执行，由于这个类代码量较多，我们把他单独抽成一个watch.js文件。
+
+watch类是Vue实现响应式系统的核心类之一，这个类主要负责数据监听和更新视图的功能。
+
+这里只定义了初始化的一些代码逻辑，可以看到在构造函数初始化时将updateComponent方法赋值给getter属性，然后再执行getter方法，也就是执行updateComponent方法。
+
+```js
+export default class Watcher {
+    vm;
+    getter;
+    constructor(vm,updateFunc){
+        this.vm = vm;
+        this.getter = updateFunc
+
+        //执行updateFunc
+        this.get();
+    }
+
+    get(){
+        const vm = this.vm;
+        this.getter.call(vm, vm)
+    }
+}
+```
