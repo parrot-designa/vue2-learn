@@ -1,4 +1,5 @@
 import Watcher from "./watch";
+import { initRender } from "./render";
 
 function Vue(options) {
     console.log("我是vue实例",options);
@@ -48,6 +49,15 @@ Vue.prototype._init = function(options){
     vm.$options = mergeOptions(
         options || {}
     );
+    initRender(vm);
 }
+
+Vue.prototype._render = function(){
+    const vm = this;
+    const { render } = vm.$options;
+    render.call(vm, vm.$createElement);
+}
+ 
+ 
 
 export default Vue;

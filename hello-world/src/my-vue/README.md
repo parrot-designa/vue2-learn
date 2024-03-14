@@ -96,3 +96,94 @@ Vue.prototype._init = function(options){
     );
 }
 ```
+
+# 6.编写一些工具函数（在后面章节中可以用到）
+
+新建了一个util.js文件
+
+```js
+/**
+ * 判断是否是一个数组
+ */
+export const isArray = Array.isArray;
+
+/**
+ * 判断是否是true
+ */
+export function isTrue(v) {
+    return v === true
+}
+
+/**
+ * 判断是否是原始类型
+ */
+export function isPrimitive(value) {
+    return (
+      typeof value === 'string' ||
+      typeof value === 'number' ||
+      // $flow-disable-line
+      typeof value === 'symbol' ||
+      typeof value === 'boolean'
+    )
+}
+```
+
+# 7.$createElement方法
+
+vue实例上定义的$createElement方法是在_init方法中定义了，源码中是initRender方法，我们新建一个render.js文件。
+
+```js
+Vue.prototype._init = function(options){ 
+    initRender(vm);
+}
+
+import VNode from "./vnode";
+
+function _createElement(
+    context,
+    tag,
+    data,
+    children,
+    normalizationType
+){
+    let vnode;
+    //如果tag为 div h1 等
+    if(typeof tag === 'string'){
+        vnode = new VNode(tag, data, children, undefined, undefined, context);
+    }
+    return vnode;
+}
+
+
+/**
+ * 
+ * @param {*} context 当前组件实例（Component）
+ * @param {*} tag 即将创建的元素标签名，可以是HTML原生标签名，也可以是组件名称
+ * @param {*} data 与该元素相关的数据对象，通常包含props、attrs、事件监听器等信息
+ * @param {*} children 子节点列表，可以是字符串、数字、VNode对象或它们组成的数组
+ * @param {*} normalizationType 规范化类型，用于指定如何处理和标准化子节点。在Vue中，这是一个内部使用的标志位，用于优化更新过程
+ * @param {*} alwaysNormalize 一个布尔值，表示是否始终对子节点进行规范化处理
+ */
+function createElement(
+    context,
+    tag,
+    data,
+    children,
+    normalizationType,
+    alwaysNormalize
+){
+    return _createElement(context, tag, data, children, normalizationType);
+}
+
+function initRender(vm){
+    vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d, true)
+}
+
+export {
+    initRender
+}
+```
+
+
+
+
