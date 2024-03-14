@@ -185,5 +185,31 @@ export {
 ```
 
 
+# 8._render方法
 
+实际上就是调用用户传入的render方法，传入$createElement方法生成vnode
 
+```js
+Vue.prototype._render = function(){
+    const vm = this;
+    const { render } = vm.$options;
+    let vnode;
+    vnode = render.call(vm, vm.$createElement);
+    return vnode
+}
+```
+
+# 9._update方法
+
+```js
+Vue.prototype._update = function(vnode){
+    const vm = this;
+    // 上一次vnode 为空表示是第一次渲染
+    const prevVnode = vm._vnode
+    vm._vnode = vnode;
+    if(!prevVnode){
+        //初次渲染
+        vm.$el = vm.__patch__(vm.$el, vnode);
+    }
+}
+```

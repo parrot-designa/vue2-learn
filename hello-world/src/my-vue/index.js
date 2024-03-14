@@ -55,9 +55,28 @@ Vue.prototype._init = function(options){
 Vue.prototype._render = function(){
     const vm = this;
     const { render } = vm.$options;
-    render.call(vm, vm.$createElement);
+    let vnode;
+    vnode = render.call(vm, vm.$createElement);
+    return vnode
+} 
+ 
+/**
+ * 
+ * @param {*} vnode 传入的需要渲染的vnode
+ */
+Vue.prototype._update = function(vnode){
+    const vm = this;
+    // 上一次vnode 为空表示是第一次渲染
+    const prevVnode = vm._vnode
+    vm._vnode = vnode;
+    if(!prevVnode){
+        //初次渲染
+        vm.$el = vm.__patch__(vm.$el, vnode);
+    }
 }
- 
- 
+
+Vue.prototype.__patch__ = function(oldVnode, vnode){
+    console.log("__patch__", oldVnode,vnode);
+}
 
 export default Vue;
