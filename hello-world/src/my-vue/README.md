@@ -28,3 +28,25 @@ Vue.prototype.$mount = function(el){
 }
 ```
 
+#  3.定义mountComponent方法进行节点的挂载
+
+这里的_update和_render方法，是Vue中定义的，分别起挂载DOM喝创建vnode的方法
+
+```js
+Vue.prototype.$mount = function(el){
+    el = el ? query(el) : undefined;
+    mountComponent(this, el);
+}
+
+// 挂载dom节点的方法
+function mountComponent(vm, el){
+    // 将el挂载在vue实例上,赋值给$el属性上
+    vm.$el = el;
+
+    let updateComponent;
+
+    updateComponent = () => {
+        vm._update(vm._render());
+    } 
+}
+```

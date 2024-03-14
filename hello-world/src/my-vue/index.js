@@ -12,8 +12,27 @@ function query(el){
     }
 }
 
+// 挂载dom节点的方法
+function mountComponent(vm, el){
+    // 将el挂载在vue实例上,赋值给$el属性上
+    vm.$el = el;
+
+    let updateComponent;
+
+    updateComponent = () => {
+        vm._update(vm._render());
+    }
+
+    new Watcher(
+        vm,
+        updateComponent
+    );
+
+}
+
 Vue.prototype.$mount = function(el){
     el = el ? query(el) : undefined;
+    mountComponent(this, el);
 }
 
 export default Vue;
