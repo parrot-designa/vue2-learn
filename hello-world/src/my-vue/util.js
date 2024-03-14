@@ -22,3 +22,10 @@ export function isPrimitive(value) {
       typeof value === 'boolean'
     )
 }
+
+/**
+ * 判断是否存在
+ */
+export function isDef(v) {
+  return v !== undefined && v !== null
+}

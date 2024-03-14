@@ -1,5 +1,6 @@
 import Watcher from "./watch";
 import { initRender } from "./render";
+import { isDef } from "./util";
 
 function Vue(options) {
     console.log("我是vue实例",options);
@@ -77,6 +78,7 @@ Vue.prototype._update = function(vnode){
 
 Vue.prototype.__patch__ = function(oldVnode, vnode){
     console.log("__patch__", oldVnode,vnode);
+    const isRealElement = isDef(oldVnode.nodeType)
 }
 
 export default Vue;
