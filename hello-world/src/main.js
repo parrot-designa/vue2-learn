@@ -1,6 +1,6 @@
-import Vue from "../src/my-vue";
-//import Vue from "vue";
-import App from "./App.vue";
+//import Vue from "../src/my-vue";
+import Vue from "vue";
+// import App from "./App.vue";
 
 new Vue({
   render: (h) =>

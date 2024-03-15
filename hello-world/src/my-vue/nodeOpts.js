@@ -42,3 +42,23 @@ export function appendChild(node, child) {
 export function createTextNode(text) {
   return document.createTextNode(text);
 }
+
+/**
+ * 根据标签名创建element
+ * @param {} tagName 
+ * @param {*} vnode 
+ * @returns 
+ */
+export function createElement(tagName,vnode){
+  const elm = document.createElement(tagName);
+  return elm;
+}
+
+
+export function insertBefore(
+  parentNode,
+  newNode,
+  referenceNode
+) {
+  parentNode.insertBefore(newNode, referenceNode)
+}
